@@ -1,0 +1,9 @@
+{
+  "title": "SHISHKA",
+  "subtitle": "Выберите, как с нами связаться.",
+  "links": {
+    "bot":      {"url": "https://t.me/ShiSKWOWaBOT", "label": "Открыть бота", "hint": "Заказ и каталог в Telegram"},
+    "operator": {"url": "https://t.me/emo14747", "label": "Написать оператору", "hint": "Ответим в личных сообщениях"},
+    "chat":     {"url": "https://t.me/+sNWMWu7z4nlhMmJi", "label": "Перейти в чат", "hint": "Общий чат сообщества"}
+  }
+}

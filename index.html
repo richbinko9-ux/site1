@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHISHKA — связь</title>
+<style>
+:root{
+  --bg:#f4f4f2; --ink:#16130e; --card:#ffffff; --line:#d9d6cc;
+  --green:#1f6b2e; --gold:#c9902b; --muted:#5d584c;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14120e; --ink:#f3efe3; --card:#201d16; --line:#3a352a;
+    --green:#4caf5f; --gold:#e0a93f; --muted:#a8a28f; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14120e; --ink:#f3efe3; --card:#201d16; --line:#3a352a;
+  --green:#4caf5f; --gold:#e0a93f; --muted:#a8a28f; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{height:100%}
+body{
+  margin:0; min-height:100%; background:var(--bg); color:var(--ink);
+  font-family:"Rubik","Segoe UI",system-ui,sans-serif;
+  display:flex; align-items:center; justify-content:center; padding:24px;
+}
+main{width:100%; max-width:420px; text-align:center}
+h1{
+  font-family:"Rubik Mono One","Impact","Arial Black",sans-serif;
+  font-size:clamp(40px,12vw,56px); margin:0 0 8px; letter-spacing:.02em;
+  color:var(--ink); text-shadow:3px 3px 0 var(--gold);
+}
+p{margin:0 0 28px; color:var(--muted); font-size:16px; line-height:1.5}
+.links{display:flex; flex-direction:column; gap:14px}
+a.btn{
+  display:block; padding:18px 20px; border-radius:14px; text-decoration:none;
+  background:var(--card); color:var(--ink); border:2px solid var(--ink);
+  font-weight:600; font-size:18px; text-align:left;
+  box-shadow:4px 4px 0 var(--green);
+}
+a.btn small{display:block; font-weight:400; font-size:14px; color:var(--muted); margin-top:2px}
+a.btn:active{transform:translate(3px,3px); box-shadow:1px 1px 0 var(--green)}
+a.btn:focus-visible{outline:3px solid var(--gold); outline-offset:3px}
+a.bot{background:var(--green); color:#fff; border-color:var(--green); box-shadow:4px 4px 0 var(--gold)}
+a.bot small{color:rgba(255,255,255,.8)}
+a.bot:active{box-shadow:1px 1px 0 var(--gold)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <h1 id="title">SHISHKA</h1>
+  <p id="subtitle">Выберите, как с нами связаться.</p>
+  <div class="links">
+    <a class="btn bot" data-key="bot" href="https://t.me/ShiSKWOWaBOT" target="_blank" rel="noopener">
+      <span data-t="label">Открыть бота</span>
+      <small data-t="hint">Заказ и каталог в Telegram</small>
+    </a>
+    <a class="btn" data-key="operator" href="https://t.me/emo14747" target="_blank" rel="noopener">
+      <span data-t="label">Написать оператору</span>
+      <small data-t="hint">Ответим в личных сообщениях</small>
+    </a>
+    <a class="btn" data-key="chat" href="https://t.me/+sNWMWu7z4nlhMmJi" target="_blank" rel="noopener">
+      <span data-t="label">Перейти в чат</span>
+      <small data-t="hint">Общий чат сообщества</small>
+    </a>
+  </div>
+</main>
+<script>
+(function(){
+  function ok(u){ return typeof u==="string" && /^https?:\/\//i.test(u); }
+  fetch("site_info.json",{cache:"no-store"})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if(!d) return;
+      if(d.title) document.getElementById("title").textContent = d.title;
+      if(d.subtitle) document.getElementById("subtitle").textContent = d.subtitle;
+      var links = d.links || {};
+      document.querySelectorAll("a[data-key]").forEach(function(a){
+        var l = links[a.getAttribute("data-key")];
+        if(!l) return;
+        if(ok(l.url)) a.href = l.url;
+        if(l.label) a.querySelector("[data-t=label]").textContent = l.label;
+        if(l.hint) a.querySelector("[data-t=hint]").textContent = l.hint;
+      });
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>
